@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package gateway;
+option go_package = "github.com/dmdq/gmb88-protos/api/proto;proto";
+
+
+service GameAppService {
+  rpc ForwardUserRequest (UserRequest) returns (UserResponse) {}
+}
+
+
+message UserRequest {
+  UserContext user_context = 1;
+  string request_data = 2;  // JSON格式的请求字符串
+}
+
+message UserResponse {
+  bool success = 1;
+  string response_data = 2;  // JSON格式的响应字符串
+  string error_message = 3;
+}
+
+message UserContext {
+  bool is_guest = 1;
+  string partner_id = 2;
+  string user_id = 3;
+  string user_name = 4;
+  string access_token = 5;
+  map<string, string> extra_info = 6;  // 额外的用户信息
+}
